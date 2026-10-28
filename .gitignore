@@ -1,0 +1,40 @@
+# build
+build/
+out/
+cmake-build-*/
+*.o
+*.obj
+*.a
+*.so
+*.dylib
+# IDE
+.idea/
+.vscode/
+*.iml
+.DS_Store
+# Android / Gradle
+.gradle/
+local.properties
+.cxx/
+# Xcode / SwiftPM
+DerivedData/
+*.xcuserstate
+xcuserdata/
+.build/
+.swiftpm/
+# Node（服务端如同仓）
+node_modules/
+.wrangler/
+dist/
+# secrets
+.env
+.env.*
+!.env.example
+*.keystore
+*.jks
+
+# CMake 本机预设
+CMakeUserPresets.json
+
+# Python 字节码
+__pycache__/
