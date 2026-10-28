@@ -1,0 +1,33 @@
+# 契约头在 gcc / clang 最严格告警下零告警、ABI 布局快照不变。
+name: verify
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+concurrency:
+  group: verify-${{ github.ref }}
+  cancel-in-progress: true
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: ${{ matrix.preset }}
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    strategy:
+      fail-fast: false
+      matrix:
+        preset: [linux-gcc, linux-clang]
+    steps:
+      - uses: actions/checkout@v4
+      - name: 工具链
+        run: |
+          command -v ninja >/dev/null || sudo apt-get install -y --no-install-recommends ninja-build
+          command -v clang >/dev/null || sudo apt-get install -y --no-install-recommends clang
+      - name: 构建 + 测试
+        run: cmake --workflow --preset ${{ matrix.preset }}
